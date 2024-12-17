@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.ComponentModel;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 using TelegramBOT.Options;
 
 namespace TelegramBOT;
@@ -42,13 +39,11 @@ public class TelegramBotService : BackgroundService
                 receiverOptions, 
                 stoppingToken);
 
-            if (_logger.IsEnabled(LogLevel.Information)) 
-                _logger.LogInformation($"Worker running at {DateTime.UtcNow}", DateTimeOffset.Now);
         }
-        await Task.Delay(1000, stoppingToken);
+        
     }
 
-    private async Task HandleErrorAsync(ITelegramBotClient client, Exception exception, CancellationToken token)
+    async Task HandleErrorAsync(ITelegramBotClient client, Exception exception, CancellationToken token)
     {
         var errorMessage = exception switch
         {
